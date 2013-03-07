@@ -11,17 +11,15 @@ package model
  *  - trier les images suivant un critère (par ordre alphabétique, date...)
  */
 
-// permettrai de voir la notion de trait, voire de sealed mais pas obligé
 trait Event
 
-// permet de voir clairement une utilisation du pattern matching
 case class AddImage(image:Image) extends Event
 
-case class RemoveImage(withId:ImageId) extends Event
+case class RemoveImage(withId:Int) extends Event
 
 case class SearchImages(term:String) extends Event
 
-case class FetchAllImagesFromOneAlbum(albumId:AlbumId) extends Event
+case class FetchAllImagesFromOneAlbum(albumId:Int) extends Event
 
 case class SortImages(criteria: Option[Criteria]) extends Event
 

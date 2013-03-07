@@ -9,7 +9,9 @@ import anorm.SqlParser._
 /**
  *  classe principale qui va gérer les différentes commandes de mon système via des l'objet Event
  */
-case class System(event: Event, var images: List[Image], var albums: List[Album]) extends App {
+// on peut à la place du var, utiliser une ListBuffer et faire liste.append(newElement)
+// ou en val puis case class et utilisation du copy(listes = newelement::liste) initialisation à Nil pour la liste
+case class System(event: Event, images: List[Image] = Nil, albums: List[Album] = Nil) extends App {
 
   /**
    * action propre à chaque Event
@@ -19,21 +21,20 @@ case class System(event: Event, var images: List[Image], var albums: List[Album]
     case RemoveImage(withId) => remove(withId)
     case SearchImages(term) => search(term)
     case FetchAllImagesFromOneAlbum(albumId) => fetchImages(albumId)
-    // utilisation des options, et gestion de ces dernières avec le pattern matching
     case SortImages(criteria) => criteria match {
       case Some(criteria) => sort(criteria)
       case None => this.images
     }
   }
 
-  def add(image: Image) = { images = image :: images }
+  def add(image: Image) = copy(images = image :: images )
 
   // méthode filter et utilisation des méthodes anonymes
-  def remove(withId: Int): Unit = { images = images.filter(x => x == withId) }
+  def remove(withId: Int): Unit = copy(images = images.filter(x => x == withId))
 
   def search(term: String): List[Image] = for (x <- images if x == term) yield x
 
-  def fetchImages(albumId: Int): Unit = { images = images.filter(x => x == albumId) }
+  def fetchImages(albumId: Int): Unit = copy(images = images.filter(x => x == albumId))
 
   def sort(criteria: Criteria): Unit = criteria match {
     case ByName => this.images // à faire
