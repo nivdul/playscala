@@ -7,14 +7,14 @@ import anorm._
 import anorm.SqlParser._
 
 /**
- *  classe principale qui va gérer les différentes commandes de mon système via des l'objet Event
+ *  classe principale qui va gÃ©rer les diffÃ©rentes commandes de mon systÃ¨me via des l'objet Event
  */
-// on peut à la place du var, utiliser une ListBuffer et faire liste.append(newElement)
-// ou en val puis case class et utilisation du copy(listes = newelement::liste) initialisation à Nil pour la liste
+// on peut Ã  la place du var, utiliser une ListBuffer et faire liste.append(newElement)
+// ou en val puis case class et utilisation du copy(listes = newelement::liste) initialisation Ã  Nil pour la liste
 case class System(event: Event, images: List[Image] = Nil, albums: List[Album] = Nil) extends App {
 
   /**
-   * action propre à chaque Event
+   * action propre Ã  chaque Event
    */
   def applyEvent(event: Event) = event match {
     case AddImage(image) => add(image)
@@ -29,7 +29,7 @@ case class System(event: Event, images: List[Image] = Nil, albums: List[Album] =
 
   def add(image: Image) = copy(images = image :: images )
 
-  // méthode filter et utilisation des méthodes anonymes
+  // mÃ©thode filter et utilisation des mÃ©thodes anonymes
   def remove(withId: Int): Unit = copy(images = images.filter(x => x == withId))
 
   def search(term: String): List[Image] = for (x <- images if x == term) yield x
@@ -37,16 +37,16 @@ case class System(event: Event, images: List[Image] = Nil, albums: List[Album] =
   def fetchImages(albumId: Int): Unit = copy(images = images.filter(x => x == albumId))
 
   def sort(criteria: Criteria): Unit = criteria match {
-    case ByName => this.images // à faire
-    case ByDate => this.images // à faire
-    case _ => this.images // à faire
+    case ByName => this.images // Ã  faire
+    case ByDate => this.images // Ã  faire
+    case _ => this.images // Ã  faire
   }
 
   ///////////////////////
-  // -- Requêtes SQL-- //
+  // -- RequÃªtes SQL-- //
   ///////////////////////
   /**
-   * image à partir de l'id.
+   * image Ã  partir de l'id.
    */
   def findImageById(id: Int): Image = {
     DB.withConnection { implicit connection =>
@@ -54,7 +54,7 @@ case class System(event: Event, images: List[Image] = Nil, albums: List[Album] =
     }
   }
   /**
-   * album à partir de l'id.
+   * album Ã  partir de l'id.
    */
   def findAlbumById(id: Int): Album = {
     DB.withConnection { implicit connection =>

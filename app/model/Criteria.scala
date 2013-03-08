@@ -1,7 +1,7 @@
 package model
 
 /*
- * classe qui définit les différents critères de tri
+ * classe qui dÃ©finit les diffÃ©rents critÃ¨res de tri
  */
 trait Criteria
 case object ByName extends Criteria

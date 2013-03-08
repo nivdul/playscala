@@ -14,7 +14,7 @@ object Image {
    * parseur pour une image ResultSet
    */
   val simple = {
-      get[Pk[Int]]("image.id") ~
+      get[Int]("image.id") ~
       get[String]("image.name") ~
       get[Int]("image.albumId") map {
         case id ~ name ~ albumId => Image(id, name, albumId)
@@ -27,7 +27,7 @@ object Album {
    * parseur pour un album ResultSet
    */
   val simple = {
-      get[Pk[Int]]("album.id") ~
+      get[Int]("album.id") ~
       get[String]("album.name") map {
         case id ~ name => Album(id, name)
       }
